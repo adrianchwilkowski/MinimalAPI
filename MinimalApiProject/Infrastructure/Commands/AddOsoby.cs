@@ -11,6 +11,7 @@ namespace MinimalApiProject.Infrastructure.Commands
         public string Adres { get; set; } = null!;
         public Osoby ToOsoby()
         {
+            if( String.IsNullOrEmpty(Imie) || String.IsNullOrEmpty(Nazwisko) || String.IsNullOrEmpty(Adres)) { throw new ArgumentException("Podano puste pole. ");  }
             return new Osoby
             {
                 ID = Guid.NewGuid(),
