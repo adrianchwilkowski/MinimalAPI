@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MinimalApiProject;
+using MinimalApiProject.Helpers;
 using MinimalApiProject.Infrastructure;
 using MinimalApiProject.Infrastructure.Commands;
 
@@ -17,6 +18,13 @@ options.UseInMemoryDatabase("Osoby"));
 builder.Services.AddScoped<IRepository, Repository>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    Seeder.Initialize(context);
+}
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
