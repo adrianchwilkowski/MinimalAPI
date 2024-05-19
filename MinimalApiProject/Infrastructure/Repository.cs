@@ -4,7 +4,14 @@ using MinimalApiProject.Infrastructure.Contracts;
 
 namespace MinimalApiProject.Infrastructure
 {
-    public class Repository
+    public interface IRepository
+    {
+        Task<List<OsobyContract>> GetOsobyList();
+        Task<OsobyContract> GetOsobaById(Guid id);
+        Task<Guid> AddOsoba(AddOsoby osoba);
+
+    }
+    public class Repository : IRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -31,10 +38,12 @@ namespace MinimalApiProject.Infrastructure
             catch(Exception ex) { throw new Exception(ex.Message); }
             
         }
-        public async Task AddOsoba(AddOsoby osoba)
+        public async Task<Guid> AddOsoba(AddOsoby osoba)
         {
-            await _dbContext.Osoby.AddAsync(osoba.ToOsoby());
+            var osobaToDomain = osoba.ToOsoby();
+            await _dbContext.Osoby.AddAsync(osobaToDomain);
             await _dbContext.SaveChangesAsync();
+            return osobaToDomain.ID;
         }
     }
 }
