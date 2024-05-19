@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MinimalApiProject.Models;
+using MinimalApiProject.Infrastructure.Models;
 
 namespace MinimalApiProject.Infrastructure
 {

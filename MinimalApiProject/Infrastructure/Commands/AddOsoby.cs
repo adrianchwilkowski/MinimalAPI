@@ -1,6 +1,6 @@
-﻿using MinimalApiProject.Models;
+﻿using MinimalApiProject.Infrastructure.Models;
 
-namespace MinimalApiProject.Commands
+namespace MinimalApiProject.Infrastructure.Commands
 {
     public class AddOsoby
     {

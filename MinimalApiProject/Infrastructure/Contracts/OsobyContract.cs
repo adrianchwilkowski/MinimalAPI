@@ -1,6 +1,6 @@
-﻿using MinimalApiProject.Models;
+﻿using MinimalApiProject.Infrastructure.Models;
 
-namespace MinimalApiProject.Contracts
+namespace MinimalApiProject.Infrastructure.Contracts
 {
     public class OsobyContract
     {

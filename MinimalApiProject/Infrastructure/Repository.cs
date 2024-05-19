@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MinimalApiProject.Commands;
-using MinimalApiProject.Contracts;
-using MinimalApiProject.Models;
+using MinimalApiProject.Infrastructure.Commands;
+using MinimalApiProject.Infrastructure.Contracts;
 
 namespace MinimalApiProject.Infrastructure
 {

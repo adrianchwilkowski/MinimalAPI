@@ -1,4 +1,4 @@
-﻿namespace MinimalApiProject.Models
+﻿namespace MinimalApiProject.Infrastructure.Models
 {
     public class Osoby
     {
