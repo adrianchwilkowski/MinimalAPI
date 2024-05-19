@@ -17,6 +17,10 @@ namespace MinimalApiProject
             {
                 schema.Example = new OpenApiString("dd-mm-yyyy");
             }
+            if (context.Type == typeof(string) && context.MemberInfo.Name == "Id")
+            {
+                schema.Example = new OpenApiString(Guid.NewGuid().ToString());
+            }
         }
     }
 }

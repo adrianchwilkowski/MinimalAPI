@@ -30,7 +30,7 @@ app.MapGet("/PobierzListeOsob", async (IRepository repository) =>
     var result = await repository.GetOsobyList();
     return Results.Ok(result);
 });
-app.MapGet("/PobierzOsobe", async (Guid Id, IRepository repository) =>
+app.MapGet("/PobierzOsobe", async (string Id, IRepository repository) =>
 {
     var result = await repository.GetOsobaById(Id);
     return Results.Ok(result);

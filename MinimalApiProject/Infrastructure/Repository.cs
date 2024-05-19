@@ -7,7 +7,7 @@ namespace MinimalApiProject.Infrastructure
     public interface IRepository
     {
         Task<List<OsobyContract>> GetOsobyList();
-        Task<OsobyContract> GetOsobaById(Guid id);
+        Task<OsobyContract> GetOsobaById(string id);
         Task<Guid> AddOsoba(AddOsoby osoba);
 
     }
@@ -24,11 +24,16 @@ namespace MinimalApiProject.Infrastructure
             var result = await _dbContext.Osoby.ToListAsync();
             return result.Select(OsobyContract.FromOsoby).ToList();
         }
-        public async Task<OsobyContract> GetOsobaById(Guid id) 
+        public async Task<OsobyContract> GetOsobaById(string id) 
         {
             try
             {
-                var result = await _dbContext.Osoby.Where(x => x.ID == id).FirstOrDefaultAsync();
+                Guid guid;
+                if(!Guid.TryParse(id, out guid))
+                {
+                    throw new ArgumentException("Podano zły format Id. ");
+                }
+                var result = await _dbContext.Osoby.Where(x => x.ID == guid).FirstOrDefaultAsync();
                 if (result == null)
                 {
                     throw new NullReferenceException("Osoba z podanym id nie istnieje. ");
