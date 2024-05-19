@@ -33,6 +33,8 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty;
 });
 
+app.UseErrorHandlingMiddleware();
+
 app.MapGet("/PobierzListeOsob", async (IRepository repository) =>
 {
     var result = await repository.GetOsobyList();
