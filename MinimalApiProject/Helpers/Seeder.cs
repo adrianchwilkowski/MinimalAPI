@@ -6,8 +6,11 @@ namespace MinimalApiProject.Helpers
 {
     public static class Seeder
     {
-        public static void Initialize(ApplicationDbContext context)
+        public static void Initialize(ApplicationDbContext context, JsonDbService json)
         {
+            var data = json.LoadData();
+            context.Osoby.AddRange(data);
+            context.SaveChanges();
             if (!context.Osoby.Any())
             {
                 context.Osoby.AddRange(

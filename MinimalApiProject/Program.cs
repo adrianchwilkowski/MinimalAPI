@@ -16,14 +16,30 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseInMemoryDatabase("Osoby"));
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<JsonDbService>(provider =>
+{
+    var context = provider.GetRequiredService<ApplicationDbContext>();
+    var filePath = builder.Configuration.GetValue<string>("JsonFile:filePath");
+    return new JsonDbService(context, filePath);
+});
 
 var app = builder.Build();
+
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+
+lifetime.ApplicationStopping.Register(() =>
+{
+    var scope = app.Services.CreateScope();
+    var dataService = scope.ServiceProvider.GetRequiredService<JsonDbService>();
+    dataService.SaveData();
+});
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    Seeder.Initialize(context);
+    var json = services.GetRequiredService<JsonDbService>();
+    Seeder.Initialize(context, json);
 }
 
 app.UseSwagger();
