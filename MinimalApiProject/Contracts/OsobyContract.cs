@@ -9,7 +9,7 @@ namespace MinimalApiProject.Contracts
         public string Nazwisko { get; set; } = null!;
         public string DataUrodzenia { get; set; } = null!;
         public string Adres { get; set; } = null!;
-        public OsobyContract FromOsoby(Osoby osoba)
+        public static OsobyContract FromOsoby(Osoby osoba)
         {
             return new OsobyContract
             {
