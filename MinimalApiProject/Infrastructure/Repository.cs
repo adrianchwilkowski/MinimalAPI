@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MinimalApiProject.Exceptions;
 using MinimalApiProject.Infrastructure.Commands;
 using MinimalApiProject.Infrastructure.Contracts;
 
@@ -22,6 +23,7 @@ namespace MinimalApiProject.Infrastructure
         public async Task<List<OsobyContract>> GetOsobyList()
         {
             var result = await _dbContext.Osoby.ToListAsync();
+            if(result == null) { throw new NoContentException("Baza danych jest pusta. "); }
             return result.Select(OsobyContract.FromOsoby).ToList();
         }
         public async Task<OsobyContract> GetOsobaById(string id) 
@@ -40,6 +42,7 @@ namespace MinimalApiProject.Infrastructure
                 }
                 return OsobyContract.FromOsoby(result);
             }
+            catch (NullReferenceException ex) { throw new NullReferenceException(ex.Message); }
             catch(Exception ex) { throw new Exception(ex.Message); }
             
         }
