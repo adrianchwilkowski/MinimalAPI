@@ -1,12 +1,17 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using MinimalApiProject;
 using MinimalApiProject.Infrastructure;
 using MinimalApiProject.Infrastructure.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Osoby API", Version = "v1" });
+    c.SchemaFilter<SchemaFilter>();
+});
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseInMemoryDatabase("Osoby"));
 builder.Services.AddScoped<IRepository, Repository>();
