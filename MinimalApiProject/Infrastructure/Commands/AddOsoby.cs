@@ -1,4 +1,5 @@
-﻿using MinimalApiProject.Infrastructure.Models;
+﻿using MinimalApiProject.Helpers;
+using MinimalApiProject.Infrastructure.Models;
 
 namespace MinimalApiProject.Infrastructure.Commands
 {

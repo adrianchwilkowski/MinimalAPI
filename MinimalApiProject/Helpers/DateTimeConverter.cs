@@ -1,4 +1,4 @@
-﻿namespace MinimalApiProject
+﻿namespace MinimalApiProject.Helpers
 {
     public static class DateTimeConverter
     {
@@ -18,7 +18,8 @@
             }
             catch { throw new ArgumentException("Niepoprawny format daty. Użyj \"dd-mm-rrrr\""); }
         }
-        public static string FromDate(this DateTime date) {
+        public static string FromDate(this DateTime date)
+        {
             return date.Day + "-" + date.Month + "-" + date.Year;
         }
     }
