@@ -9,7 +9,7 @@ namespace MinimalApiProject.Infrastructure
     {
         Task<List<OsobyContract>> GetOsobyList();
         Task<OsobyContract> GetOsobaById(string id);
-        Task<Guid> AddOsoba(AddOsoby osoba);
+        Task<OsobyContract> AddOsoba(AddOsoby osoba);
 
     }
     public class Repository : IRepository
@@ -46,12 +46,13 @@ namespace MinimalApiProject.Infrastructure
             catch(Exception ex) { throw new Exception(ex.Message); }
             
         }
-        public async Task<Guid> AddOsoba(AddOsoby osoba)
+        public async Task<OsobyContract> AddOsoba(AddOsoby osoba)
         {
             var osobaToDomain = osoba.ToOsoby();
             await _dbContext.Osoby.AddAsync(osobaToDomain);
             await _dbContext.SaveChangesAsync();
-            return osobaToDomain.ID;
+            var osobaContract = OsobyContract.FromOsoby(osobaToDomain);
+            return osobaContract;
         }
     }
 }

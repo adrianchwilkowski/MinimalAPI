@@ -51,20 +51,20 @@ app.UseSwaggerUI(c =>
 
 app.UseErrorHandlingMiddleware();
 
-app.MapGet("/PobierzListeOsob", async (IRepository repository) =>
+app.MapGet("/Osoby", async (IRepository repository) =>
 {
     var result = await repository.GetOsobyList();
     return Results.Ok(result);
 });
-app.MapGet("/PobierzOsobe", async (string Id, IRepository repository) =>
+app.MapGet("/Osoby/{id}", async (string id, IRepository repository) =>
 {
-    var result = await repository.GetOsobaById(Id);
+    var result = await repository.GetOsobaById(id);
     return Results.Ok(result);
 });
-app.MapPost("/DodajOsobe", async (AddOsoby osoba, IRepository repository) =>
+app.MapPost("/Osoby", async (AddOsoby osoba, IRepository repository) =>
 {
     var result = await repository.AddOsoba(osoba);
-    return Results.Ok(result);
+    return Results.Created($"/Osoby/{result.ID}", result);
 });
 
 app.Run();
