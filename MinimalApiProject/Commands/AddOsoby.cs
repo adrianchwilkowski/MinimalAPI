@@ -6,7 +6,7 @@ namespace MinimalApiProject.Commands
     {
         public string Imie { get; set; } = null!;
         public string Nazwisko { get; set; } = null!;
-        public DateTime DataUrodzenia { get; set; }
+        public string DataUrodzenia { get; set; } = null!;
         public string Adres { get; set; } = null!;
         public Osoby ToOsoby()
         {
@@ -16,7 +16,7 @@ namespace MinimalApiProject.Commands
                 Imie = Imie,
                 Nazwisko = Nazwisko,
                 Adres = Adres,
-                DataUrodzenia = DataUrodzenia
+                DataUrodzenia = DataUrodzenia.ToDate()
             };
         }
     }
